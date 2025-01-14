@@ -26,6 +26,9 @@ public class Users {
     @JoinColumn(name = "userTypeId", referencedColumnName = "userTypeId")
     private UsersType userTypeId;
 
+    public Users() {
+    }
+
     public Users(String userId, String email, String password, String isActive, String registrationDate, UsersType userTypeId) {
         this.userId = userId;
         this.email = email;
