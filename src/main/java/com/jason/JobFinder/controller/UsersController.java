@@ -2,6 +2,7 @@ package com.jason.JobFinder.controller;
 
 import com.jason.JobFinder.entity.Users;
 import com.jason.JobFinder.entity.UsersType;
+import com.jason.JobFinder.services.UsersService;
 import com.jason.JobFinder.services.UsersTypeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,12 @@ import java.util.List;
 public class UsersController {
 
     private final UsersTypeService usersTypeService;
+    private final UsersService usersService;
 
     @Autowired
-    public UsersController(UsersTypeService usersTypeService) {
+    public UsersController(UsersTypeService usersTypeService, UsersService usersService) {
         this.usersTypeService = usersTypeService;
+        this.usersService = usersService;
     }
 
     @GetMapping("/register")
@@ -32,7 +35,8 @@ public class UsersController {
 
     @PostMapping("/register/new")
     public String userRegistration(@Valid Users users){
-        System.out.println("User:: "+users);
+//        System.out.println("User:: "+users);
+        usersService.addNew(users);
         return "dashboard";
     }
 }

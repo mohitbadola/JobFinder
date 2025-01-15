@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -14,7 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;
 
     @Column(unique = true)
@@ -23,10 +25,10 @@ public class Users {
     @NotEmpty
     private String password;
 
-    private String isActive;
+    private boolean isActive;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private String registrationDate;
+    private Date registrationDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userTypeId", referencedColumnName = "userTypeId")
