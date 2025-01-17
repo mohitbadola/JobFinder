@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "job_seeker_profile")
 @Data
@@ -28,7 +30,11 @@ public class JobSeekerProfile {
     private String workAuthorization;
     private String employmentType;
     private String resume;
+    @Column(nullable = true, length = 64)
     private String profilePhoto;
+
+    @OneToMany(targetEntity = Skills.class, cascade = CascadeType.ALL, mappedBy = "jobSeekerProfile")
+    private List<Skills> skills;
 
 
 }
