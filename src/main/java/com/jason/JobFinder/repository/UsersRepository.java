@@ -1,7 +1,6 @@
 package com.jason.JobFinder.repository;
 
 import com.jason.JobFinder.entity.Users;
-import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

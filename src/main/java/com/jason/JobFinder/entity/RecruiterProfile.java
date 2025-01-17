@@ -30,4 +30,7 @@ public class RecruiterProfile {
     private String profilePhoto;
 
 
+    public RecruiterProfile(Users users) {
+        this.userId = users;
+    }
 }

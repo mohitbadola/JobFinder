@@ -37,4 +37,7 @@ public class JobSeekerProfile {
     private List<Skills> skills;
 
 
+    public JobSeekerProfile(Users users) {
+        this.userId = users;
+    }
 }
