@@ -22,6 +22,7 @@ public class WebSecurityConfig {
     }
 
     private final String[] publicUrl = {
+            "/",
             "/global-search/**",
             "/register",
             "/register/**",
@@ -46,6 +47,7 @@ public class WebSecurityConfig {
             auth.requestMatchers(publicUrl).permitAll();
             auth.anyRequest().authenticated();
         });
+        http.formLogin(form->form.loginPage("/login").permitAll().successHandler());
         return http.build();
     }
 
