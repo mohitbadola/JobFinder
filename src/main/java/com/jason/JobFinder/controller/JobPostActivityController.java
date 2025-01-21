@@ -17,14 +17,19 @@ public class JobPostActivityController {
     }
 
     @GetMapping("/dashboard")
-    public String searchJobs(Model model){
+    public String searchJobs(Model model) {
+
         Object currentUserProfile = usersService.getCurrentUserProfile();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(!(authentication instanceof AnonymousAuthenticationToken)){
-            String currentUserName = authentication.getName();
-            model.addAttribute("username", currentUserName);
+
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUsername = authentication.getName();
+            model.addAttribute("username", currentUsername);
         }
+
         model.addAttribute("user", currentUserProfile);
+
+        model.addAttribute("message", "Welcome to the Dashboard!");
         return "dashboard";
     }
 }
