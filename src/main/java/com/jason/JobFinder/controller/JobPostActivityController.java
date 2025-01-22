@@ -32,7 +32,6 @@ public class JobPostActivityController {
         model.addAttribute("user", currentUserProfile);
 
         model.addAttribute("message", "Welcome to the Dashboard!");
-        System.out.println("denier is right");
         return "dashboard";
     }
 }
