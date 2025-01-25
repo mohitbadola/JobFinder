@@ -44,7 +44,7 @@ public class JobPostActivityController {
     }
 
     @GetMapping("/dashboard/add")
-    public String addJobs(Model model){
+    public String addJobs(Model model) {
         model.addAttribute("jobPostActivity", new JobPostActivity());
         model.addAttribute("user", usersService.getCurrentUserProfile());
         return "add-jobs";
