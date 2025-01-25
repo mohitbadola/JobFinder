@@ -51,14 +51,15 @@ public class JobPostActivityController {
     }
 
     @PostMapping("/dashboard/addNew")
-    public String addNew(JobPostActivity jobPostActivity, Model model){
+    public String addNew(JobPostActivity jobPostActivity, Model model) {
+
         Users user = usersService.getCurrentUser();
-        if(user!=null){
+        if (user != null) {
             jobPostActivity.setPostedById(user);
         }
         jobPostActivity.setPostedDate(new Date());
         model.addAttribute("jobPostActivity", jobPostActivity);
-        JobPostActivity saved = jobPostActivityService.addNew(jobPostActivity);
-        return "redirected:/dashboard/";
+        jobPostActivityService.addNew(jobPostActivity);
+        return "redirect:/dashboard";
     }
 }
