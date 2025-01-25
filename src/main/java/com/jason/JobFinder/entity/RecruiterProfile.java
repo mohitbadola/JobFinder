@@ -36,7 +36,8 @@ public class RecruiterProfile {
 
     @Transient
     public String getPhotosImagePath() {
-        if(profilePhoto == null)return null;
+        if (profilePhoto == null) return null;
         return "/photos/recruiter/" + userAccountId + "/" + profilePhoto;
     }
+
 }
