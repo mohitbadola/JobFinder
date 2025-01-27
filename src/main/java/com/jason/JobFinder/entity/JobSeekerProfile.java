@@ -30,6 +30,7 @@ public class JobSeekerProfile {
     private String workAuthorization;
     private String employmentType;
     private String resume;
+
     @Column(nullable = true, length = 64)
     private String profilePhoto;
 
@@ -42,8 +43,8 @@ public class JobSeekerProfile {
     }
 
     @Transient
-    public String getPhotosImagePath(){
-        if(profilePhoto == null || userAccountId == null)return null;
+    public String getPhotosImagePath() {
+        if (profilePhoto == null || userAccountId == null) return null;
         return "/photos/candidate/" + userAccountId + "/" + profilePhoto;
     }
 }
