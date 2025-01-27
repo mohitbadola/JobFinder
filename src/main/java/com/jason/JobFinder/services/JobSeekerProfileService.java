@@ -15,7 +15,7 @@ public class JobSeekerProfileService {
         this.jobSeekerProfileRepository = jobSeekerProfileRepository;
     }
 
-    public Optional<JobSeekerProfile> getOne(Integer id){
+    public Optional<JobSeekerProfile> getOne(Integer id) {
         return jobSeekerProfileRepository.findById(id);
     }
 
