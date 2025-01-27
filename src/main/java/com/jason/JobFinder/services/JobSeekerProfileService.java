@@ -19,7 +19,7 @@ public class JobSeekerProfileService {
         return jobSeekerProfileRepository.findById(id);
     }
 
-    public void addNew(JobSeekerProfile jobSeekerProfile) {
-        jobSeekerProfileRepository.save(jobSeekerProfile);
+    public JobSeekerProfile addNew(JobSeekerProfile jobSeekerProfile) {
+        return jobSeekerProfileRepository.save(jobSeekerProfile);
     }
 }
