@@ -65,9 +65,10 @@ public class JobSeekerProfileController {
     }
 
     @PostMapping("/addNew")
-    public String addNew(JobSeekerProfile jobSeekerProfile, @RequestParam("image") MultipartFile image, @RequestParam("pdf") MultipartFile pdf, Model model){
+    public String addNew(JobSeekerProfile jobSeekerProfile, @RequestParam("image") MultipartFile image, @RequestParam("pdf") MultipartFile pdf, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)){
+
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
             Users user = usersRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found."));
             jobSeekerProfile.setUserId(user);
             jobSeekerProfile.setUserAccountId(user.getUserId());
@@ -76,31 +77,37 @@ public class JobSeekerProfileController {
         List<Skills> skillsList = new ArrayList<>();
         model.addAttribute("profile", jobSeekerProfile);
         model.addAttribute("skills", skillsList);
-        for(Skills skills : jobSeekerProfile.getSkills()){
+
+        for (Skills skills : jobSeekerProfile.getSkills()) {
             skills.setJobSeekerProfile(jobSeekerProfile);
         }
+
         String imageName = "";
         String resumeName = "";
 
-        if(Objects.equals(image.getOriginalFilename(), "")){
+        if (!Objects.equals(image.getOriginalFilename(), "")) {
             imageName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
+            jobSeekerProfile.setProfilePhoto(imageName);
+        }
+
+        if (!Objects.equals(pdf.getOriginalFilename(), "")) {
+            resumeName = StringUtils.cleanPath(Objects.requireNonNull(pdf.getOriginalFilename()));
             jobSeekerProfile.setResume(resumeName);
         }
 
-        jobSeekerProfileService.addNew(jobSeekerProfile);
+        JobSeekerProfile seekerProfile = jobSeekerProfileService.addNew(jobSeekerProfile);
 
-        try{
-            String uploadDir = "/photos/candidate/" + jobSeekerProfile.getUserAccountId();
-            if(!Objects.equals(image.getOriginalFilename(), "")){
+        try {
+            String uploadDir = "photos/candidate/" + jobSeekerProfile.getUserAccountId();
+            if (!Objects.equals(image.getOriginalFilename(), "")) {
                 FileUploadUtil.saveFile(uploadDir, imageName, image);
             }
-            if(!Objects.equals(pdf.getOriginalFilename(), "")){
+            if (!Objects.equals(pdf.getOriginalFilename(), "")) {
                 FileUploadUtil.saveFile(uploadDir, resumeName, pdf);
             }
-        }catch (IOException ex){
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
 
         return "redirect:/dashboard";
     }
